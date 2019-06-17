@@ -3,6 +3,18 @@
     ViewBag.Title = "Список предметов студента";
 }
 
+@section Scripts {
+    <script>
+        $('#allCheckbox').click(function () {
+            if ($(this).is(':checked')) {
+                $('#controls input:checkbox').prop('checked', true);
+            } else {
+                $('#controls input:checkbox').prop('checked', false);
+            }
+        });
+    </script>
+}
+
 <div class="container">
     <div class="row">
         <h1>Выберите предметы из списка</h1>
@@ -11,12 +23,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" id="allCheckbox">
                         <span>Выбрать всё</span>
                     </label>
                 </div>
-                <div class="panel-body">
-                    @foreach (var item in Model.StudentDisciplines)
+                <div class="panel-body" id="controls">
+                    @foreach (var item in Model.AllDisciplines)
                     {
                         <div class="input-group col-md-12">
                             <div class="input-group-prepend col-md-1">
@@ -26,24 +38,7 @@
                             </div>
                             <p class="col-md-11">@item.Discipline.DisciplineName</p>
                         </div>
-                    }
-
-                    @*<div class="input-group col-md-12">
-            <div class="input-group-prepend col-md-1">
-                <div class="input-group-text">
-                    <input type="checkbox">
-                </div>
-            </div>
-            <p class="col-md-11">Информатика</p>
-        </div>
-        <div class="input-group col-md-12">
-            <div class="input-group-prepend col-md-1">
-                <div class="input-group-text">
-                    <input type="checkbox">
-                </div>
-            </div>
-            <p class="col-md-11">Информатика</p>
-        </div>*@
+                    }                   
                     <hr />
                     <input type="submit" value="Сохранить" class="btn btn-default" />
                 </div>
