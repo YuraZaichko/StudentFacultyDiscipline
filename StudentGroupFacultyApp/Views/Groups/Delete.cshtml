@@ -1,0 +1,40 @@
+﻿@model StudentGroupFacultyApp.Models.Group
+
+@{
+    ViewBag.Title = "Удалить";
+}
+
+<h2>Delete</h2>
+
+<h3>Вы уверенны. что хотите удалить?</h3>
+<div>
+    <h4>Группа</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Faculty.FacultyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.FacultyName)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.GroupName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    }
+</div>

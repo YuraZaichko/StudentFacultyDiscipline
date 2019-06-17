@@ -1,0 +1,40 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    var roles = ViewBag.CurrentUserRoles as string[];
+}
+
+<div class="row">
+   
+        <div class="col-md-4">
+            <h2><a href="/Students">Студенты</a></h2>
+        </div>
+
+    @if (roles.Contains("Admin") || roles.Contains("Faculty"))
+    {
+        <div class="col-md-4">
+            <h2><a href="/Groups">Группы</a></h2>
+        </div>
+    }
+
+    @if (roles.Contains("Admin"))
+    {
+        <div class="col-md-4">
+            <h2><a href="/Faculties">Факультеты</a></h2>
+        </div>
+    }
+</div>
+
+<div class="row">
+    @if (roles.Contains("Admin"))
+    {
+        <div class="col-md-6">
+            <h2><a href="/Disciplines">Дисциплины</a></h2>
+        </div>
+    }
+    @if (roles.Contains("Admin") || roles.Contains("Faculty"))
+    {
+        <div class="col-md-6">
+            <h2><a href="/FacultyDisciplines">Факультеты и дисциплины</a></h2>
+        </div>
+    }
+</div>

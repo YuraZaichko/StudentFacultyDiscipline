@@ -1,0 +1,34 @@
+﻿@model StudentGroupFacultyApp.Models.FacultyDiscipline
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FacultyDiscipline</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Discipline.DisciplineName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discipline.DisciplineName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Faculty.FacultyName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Faculty.FacultyName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FacultyDisciplineId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

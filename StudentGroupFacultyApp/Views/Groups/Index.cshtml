@@ -1,0 +1,33 @@
+﻿@model IEnumerable<StudentGroupFacultyApp.Models.Group>
+
+@{
+    ViewBag.Title = "Главная";
+}
+
+<h2>Главная</h2>
+
+<p>
+    @Html.ActionLink("Создать группу", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.GroupName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.GroupName)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.GroupId }) |
+            @Html.ActionLink("Подробно", "Details", new { id=item.GroupId }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.GroupId })
+        </td>
+    </tr>
+}
+
+</table>
