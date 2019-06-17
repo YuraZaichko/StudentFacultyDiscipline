@@ -15,11 +15,16 @@ namespace StudentGroupFacultyApp.Controllers
     public class StudentFacultyDisciplineController : BaseController
     {
         public ActionResult Index()
-        {
-            var studentId = CurrentUser.StudentId;
-            var facultyDisciplineForStudent = db.Students.FirstOrDefault(x => x.StudentId == studentId).Group.Faculty.FacultyDisciplines.ToList();
+        {            
+            var facultyDisciplineForStudent = db.Students.FirstOrDefault(
+                x => x.StudentId == CurrentUser.StudentId)
+                .Group
+                .Faculty
+                .FacultyDisciplines.ToList();
 
-            var studentDisciplines = db.Students.FirstOrDefault(x => x.StudentId == CurrentUser.StudentId).FacultyDisciplines.ToList();
+            var studentDisciplines = db.Students.FirstOrDefault(
+                x => x.StudentId == CurrentUser.StudentId)
+                .FacultyDisciplines.ToList();
 
             var viewModel = new StudentFacultyDisciplineViewModel()
             {
