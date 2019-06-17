@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StudentGroupFacultyApp.Models;
+using StudentGroupFacultyApp.Models.ViewModels;
 
 namespace StudentGroupFacultyApp.Controllers
 {
@@ -15,11 +16,18 @@ namespace StudentGroupFacultyApp.Controllers
     {
         public ActionResult Index()
         {
-            
-            
-            
+            var studentId = CurrentUser.StudentId;
+            var facultyDisciplineForStudent = db.Students.FirstOrDefault(x => x.StudentId == studentId).Group.Faculty.FacultyDisciplines.ToList();
 
-            return View();
+            var studentDisciplines = db.Students.FirstOrDefault(x => x.StudentId == CurrentUser.StudentId).FacultyDisciplines.ToList();
+
+            var viewModel = new StudentFacultyDisciplineViewModel()
+            {
+                AllDisciplines = facultyDisciplineForStudent,
+                StudentDisciplines = studentDisciplines
+            };
+
+            return View(viewModel);
         }        
     }
 }
