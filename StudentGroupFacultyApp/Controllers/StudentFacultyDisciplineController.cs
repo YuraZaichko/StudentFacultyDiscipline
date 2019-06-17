@@ -14,7 +14,7 @@ namespace StudentGroupFacultyApp.Controllers
     [Authorize(Roles ="Admin, Student")]
     public class StudentFacultyDisciplineController : BaseController
     {
-        public ActionResult Index()
+        public ActionResult Index(int disciplineId, string disciplineName)
         {
             var facultyDisciplineForStudent = db.Students.FirstOrDefault
                 (x => x.StudentId == CurrentUser.StudentId)
@@ -31,6 +31,19 @@ namespace StudentGroupFacultyApp.Controllers
                 AllDisciplines = facultyDisciplineForStudent,
                 StudentDisciplines = studentDisciplines
             };
+            
+            var selectedDisciplinesStudent = db.Students.FirstOrDefault
+                (x => x.StudentId == CurrentUser.StudentId)
+                .FacultyDisciplines;
+
+            if (selectedDisciplinesStudent == null)
+            {
+                return HttpNotFound();
+            }
+
+            
+
+
 
             return View(viewModel);
         }        
