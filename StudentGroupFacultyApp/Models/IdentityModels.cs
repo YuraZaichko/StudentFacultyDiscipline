@@ -59,6 +59,7 @@ namespace StudentGroupFacultyApp.Models
         public DbSet<Student> Students { get; set; }
         public DbSet<Discipline> Disciplines { get; set; }
         public DbSet<FacultyDiscipline> FacultyDisciplines { get; set; }
+        
 
     }
 }

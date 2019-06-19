@@ -183,6 +183,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentFacultyDisciplineController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\SwitchRoleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -301,6 +302,7 @@
     <Content Include="Views\FacultyDisciplines\Edit.cshtml" />
     <Content Include="Views\FacultyDisciplines\Index.cshtml" />
     <Content Include="Views\StudentFacultyDiscipline\Index.cshtml" />
+    <Content Include="Views\SwitchRole\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

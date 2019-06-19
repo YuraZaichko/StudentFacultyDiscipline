@@ -28,19 +28,21 @@
                     </label>
                 </div>
                 <div class="panel-body" id="controls">
-                    @foreach (var item in Model.AllDisciplines)
-                    {
-                        <div class="input-group col-md-12">
-                            <div class="input-group-prepend col-md-1">
-                                <div class="input-group-text">
-                                    <input type="checkbox" value="@item.DisciplineId">
+                    <form action="@Url.Action("Index")" method="post">
+                        @foreach (var item in Model.AllDisciplines)
+                        {
+                            <div class="input-group col-md-12">
+                                <div class="input-group-prepend col-md-1">
+                                    <div class="input-group-text">
+                                        <input type="checkbox" name="selectedFacultyDisciplinesIds" value="@item.FacultyDisciplineId" checked="@(Model.StudentDisciplines.Contains(item.FacultyDisciplineId))">
+                                    </div>
                                 </div>
+                                <p class="col-md-11">@item.Discipline.DisciplineName</p>
                             </div>
-                            <p class="col-md-11">@item.Discipline.DisciplineName</p>
-                        </div>  
-                    }                   
-                    <hr />
-                    <input type="submit" value="Сохранить" class="btn btn-default" />
+                        }
+                        <hr />
+                        <input type="submit" value="Сохранить" class="btn btn-default" />
+                    </form>
                 </div>
             </div>
         </div>

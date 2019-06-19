@@ -14,7 +14,8 @@ namespace StudentGroupFacultyApp.Controllers
     [Authorize(Roles ="Admin, Student")]
     public class StudentFacultyDisciplineController : BaseController
     {
-        public ActionResult Index(int disciplineId, string disciplineName)
+        [HttpGet]
+        public ActionResult Index()
         {
             var facultyDisciplineForStudent = db.Students.FirstOrDefault
                 (x => x.StudentId == CurrentUser.StudentId)
@@ -24,28 +25,34 @@ namespace StudentGroupFacultyApp.Controllers
 
             var studentDisciplines = db.Students.FirstOrDefault
                 (x => x.StudentId == CurrentUser.StudentId)
-                .FacultyDisciplines.ToList();
+                .FacultyDisciplines.Select(x=>x.FacultyDisciplineId).ToArray();
 
             var viewModel = new StudentFacultyDisciplineViewModel()
             {
                 AllDisciplines = facultyDisciplineForStudent,
                 StudentDisciplines = studentDisciplines
             };
-            
-            var selectedDisciplinesStudent = db.Students.FirstOrDefault
-                (x => x.StudentId == CurrentUser.StudentId)
-                .FacultyDisciplines;
-
-            if (selectedDisciplinesStudent == null)
+           
+            return View(viewModel);
+        }
+        [HttpPost]
+        public ActionResult Index(int[] selectedFacultyDisciplinesIds)
+        {
+            if (selectedFacultyDisciplinesIds == null)
+            {
+                selectedFacultyDisciplinesIds = new int[0];
+            }
+            var facultyDisciplines = db.FacultyDisciplines.Where(x => selectedFacultyDisciplinesIds.Contains(x.FacultyDisciplineId)).ToList();
+            var student = db.Students.FirstOrDefault(x => x.StudentId == CurrentUser.StudentId);
+            if (student == null)
             {
                 return HttpNotFound();
             }
+            student.FacultyDisciplines.Clear();
+            student.FacultyDisciplines.AddRange(facultyDisciplines);
+            db.SaveChanges();
 
-            
-
-
-
-            return View(viewModel);
-        }        
+            return RedirectToAction("Index");
+        }
     }
 }
