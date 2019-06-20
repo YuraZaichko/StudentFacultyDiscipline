@@ -27,5 +27,16 @@ namespace StudentGroupFacultyApp.Controllers
             };
             return View(viewModel);
         }
+
+        //[HttpPost]
+        //public ActionResult Action(int? selectedFaculty, int? selectedStudent)
+        //{
+        //    if (selectedFaculty==null)
+        //    {
+
+        //    }
+
+        //    return View();
+        //}
     }
 }

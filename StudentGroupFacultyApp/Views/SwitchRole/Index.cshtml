@@ -11,14 +11,37 @@
         <div class="panel-body">
             <div class="row">
 
-                <form action="" method="post">
+                <form action="@Url.Action("Index")" method="post">
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-6">
                                 <select class="btn btn-default">
                                     <option>Выберите факультет</option>
-                                    <option name="" value="">Прикладная информатика</option>
-                                    <option name="" value="">Финансы и кредит</option>
+                                    @foreach (var item in Model.AllFaculty)
+                                    {
+                                        <option name="selectedFaculty" value="@item.FacultyId">@item.FacultyName</option>
+                                    }
+                                </select>
+
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" value="Переключиться" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form action="@Url.Action("Index")" method="post">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select class="btn btn-default">
+                                    <option>Выберите студента</option>
+                                    @foreach (var item in Model.Students)
+                                    {
+                                        <option name="selectedStudent" value="@item.StudentId">@item.StudentLastName @item.StudentFirstName @item.StudentMiddleName</option>
+                                    }
+
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -28,21 +51,6 @@
                     </div>
                 </form>
 
-                <form action="" method="post">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <select class="btn btn-default">
-                                    <option>Выберите студента</option>
-                                    <option name="" value="">Иванов Иван Иванович</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <input type="submit" value="Переключиться" class="btn btn-primary" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
