@@ -10,32 +10,22 @@
         </div>
         <div class="panel-body">
             <div class="row">
+                <div class="col-md-12">
+                    <form action="@Url.Action("Index")" method="post">
 
-                <form action="@Url.Action("Index")" method="post">
-                    <div class="col-md-6">
                         <div class="row">
-                            <div class="col-md-6">
-                                <select class="btn btn-default" name="selectedFaculty">
+                            <div class="col-md-4">
+                                <select class="btn btn-default" name="selectedFaculty" id="selectFaculty">
                                     <option>Выберите факультет</option>
                                     @foreach (var item in Model.AllFaculty)
                                     {
                                         <option value="@item.FacultyId">@item.FacultyName</option>
                                     }
                                 </select>
-
                             </div>
-                            <div class="col-md-6">
-                                <input type="submit" value="Переключиться" class="btn btn-primary" />
-                            </div>
-                        </div>
-                    </div>
-                </form>
 
-                <form action="@Url.Action("Index")" method="post">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <select class="btn btn-default" name="selectedStudent">
+                            <div class="col-md-4">
+                                <select class="btn btn-default" name="selectedStudent" id="selectStudent">
                                     <option>Выберите студента</option>
                                     @foreach (var item in Model.Students)
                                     {
@@ -44,14 +34,37 @@
 
                                 </select>
                             </div>
-                            <div class="col-md-6">
+
+                            <div class="col-md-4">
                                 <input type="submit" value="Переключиться" class="btn btn-primary" />
                             </div>
-                        </div>
-                    </div>
-                </form>
 
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/scripts/jquery-3.3.1.min.js")
+    @Scripts.Render("~/scripts/jquery.jquery.unobtrusive-ajax-min.js")
+
+    <script>
+        $(function () {
+            $('#selectFaculty').on('change', function () {
+                var facultyId = $('#selectFaculty').val();
+                var selectStudents = $('#selectStudent');
+                selectStudents.html('');
+                $.get('/SwitchRole/GetStudentsByFaculty', { selectFaculty: facultyId }, function (response) {
+                    $('<option></option>').text('Выберите студента').appendTo(selectStudents);
+                    for (var i = 0; i < response.length; i++) {
+                        $('<option></option>').text(response[i].FullName).attr('value', response[i].StudentId).appendTo(selectStudents);
+                    }
+                });
+            });
+        })
+    </script>
+
+}

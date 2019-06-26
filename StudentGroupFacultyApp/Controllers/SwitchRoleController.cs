@@ -32,6 +32,7 @@ namespace StudentGroupFacultyApp.Controllers
         [HttpPost]
         public ActionResult Index(int? selectedFaculty, int? selectedStudent)
         {
+
             if (selectedFaculty != null)
             {                
                 var applicationUserFaculty = db.Users.FirstOrDefault(x => x.Id==CurrentUser.Id);
@@ -60,6 +61,17 @@ namespace StudentGroupFacultyApp.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult GetStudentsByFaculty(int selectFaculty)
+        {
+            var students = db.Students.Where(x => x.Group.FacultyId == selectFaculty).Select(x => new
+            {
+                StudentId = x.StudentId,
+                FullName=x.StudentLastName+" "+x.StudentFirstName+" "+x.StudentMiddleName
+            }).ToList();
+
+            return Json(students,JsonRequestBehavior.AllowGet);
         }
     }
 }
