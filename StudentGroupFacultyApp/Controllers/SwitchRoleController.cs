@@ -30,29 +30,34 @@ namespace StudentGroupFacultyApp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(int? selectedFaculty/*, int? selectedStudent*/)
+        public ActionResult Index(int? selectedFaculty, int? selectedStudent)
         {
-            if (selectedFaculty != null/* && selectedStudent==null*/)
-            {
-                //selectedStudent = 0;
-                
-                var applicationUser = db.Users.FirstOrDefault(x => x.Id==CurrentUser.Id);
-                if (applicationUser == null)
+            if (selectedFaculty != null)
+            {                
+                var applicationUserFaculty = db.Users.FirstOrDefault(x => x.Id==CurrentUser.Id);
+                if (applicationUserFaculty == null)
                 {
-                    return new HttpStatusCodeResult(404, "Ошибка!!!");
+                    return new HttpStatusCodeResult(404, "Ошибка с выбором факультета!!!");
                 }
 
-                applicationUser.FacultyId = selectedFaculty;
+                applicationUserFaculty.FacultyId = selectedFaculty;
+                applicationUserFaculty.StudentId= null;
                 db.SaveChanges();
                
             }
 
+            if (selectedStudent!=null)
+            {
+                var applicationUserStudent = db.Users.FirstOrDefault(x => x.Id == CurrentUser.Id);
+                if (applicationUserStudent==null)
+                {
+                    return new HttpStatusCodeResult(404, "Ошибка с выбором студента!!!"); 
+                }
 
-
-            //if(selectedFaculty==null && selectedStudent != null)
-            //{
-            //    selectedFaculty = 0;
-            //}
+                applicationUserStudent.StudentId = selectedStudent;
+                applicationUserStudent.FacultyId = null;
+                db.SaveChanges();
+            }
 
             return RedirectToAction("Index", "Home");
         }
