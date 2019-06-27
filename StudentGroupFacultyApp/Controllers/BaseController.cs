@@ -28,7 +28,19 @@ namespace StudentGroupFacultyApp.Controllers
                     CurrentUserRoles = userManager.GetRoles(CurrentUser.Id).ToArray();
                     ViewBag.CurrentUser = CurrentUser;
                     ViewBag.CurrentUserRoles = CurrentUserRoles;
+
+                    var userDisplayName = "";
+                    if (CurrentUser.Faculty != null)
+                    {
+                        userDisplayName = CurrentUser.Faculty.FacultyName;
+                    }
+                    if (CurrentUser.Student != null)
+                    {
+                        userDisplayName = CurrentUser.Student.StudentLastName + " " + CurrentUser.Student.StudentFirstName + " " + CurrentUser.Student.StudentMiddleName;
+                    }
+                    ViewBag.UserDisplayName = userDisplayName;
                 }
+                
             }
 
         }

@@ -19,9 +19,9 @@ namespace StudentGroupFacultyApp.Models
         }
 
         public int? FacultyId { get; set; }
-        public Faculty Faculty { get; set; }
+        public virtual Faculty Faculty { get; set; }
         public int? StudentId { get; set; }
-        public Student Student { get; set; }
+        public virtual Student Student { get; set; }
 
     }
 

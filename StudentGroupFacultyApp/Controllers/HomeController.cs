@@ -15,7 +15,7 @@ namespace StudentGroupFacultyApp.Controllers
 
         
         public ActionResult Index()
-        {            
+        {
             return View();
         }
 
