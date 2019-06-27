@@ -32,31 +32,29 @@ namespace StudentGroupFacultyApp.Controllers
         [HttpPost]
         public ActionResult Index(int? selectedFaculty, int? selectedStudent)
         {
-
-            if (selectedFaculty != null)
-            {                
-                var applicationUserFaculty = db.Users.FirstOrDefault(x => x.Id==CurrentUser.Id);
-                if (applicationUserFaculty == null)
-                {
-                    return new HttpStatusCodeResult(404, "Ошибка с выбором факультета!!!");
-                }
-
-                applicationUserFaculty.FacultyId = selectedFaculty;
-                applicationUserFaculty.StudentId= null;
-                db.SaveChanges();
-               
+            if (selectedFaculty==null && selectedStudent == null)
+            {
+                return new HttpStatusCodeResult(404, "page not found!");
             }
 
-            if (selectedStudent!=null)
+            var applicationUser = db.Users.FirstOrDefault(x => x.Id == CurrentUser.Id);
+            applicationUser.FacultyId = null;
+            applicationUser.StudentId = null;
+            db.SaveChanges();
+
+            //заходим под студентом
+            if (selectedFaculty == null && selectedStudent != null || selectedFaculty != null && selectedStudent!=null)
             {
                 var applicationUserStudent = db.Users.FirstOrDefault(x => x.Id == CurrentUser.Id);
-                if (applicationUserStudent==null)
-                {
-                    return new HttpStatusCodeResult(404, "Ошибка с выбором студента!!!"); 
-                }
+                applicationUser.StudentId = selectedStudent;
+                db.SaveChanges();
+            }
 
-                applicationUserStudent.StudentId = selectedStudent;
-                applicationUserStudent.FacultyId = null;
+            //заходим под факультетом
+            if (selectedFaculty!=null && selectedStudent==null)
+            {
+                var applicationUserFaculty = db.Users.FirstOrDefault(x => x.Id == CurrentUser.Id);
+                applicationUserFaculty.FacultyId = selectedFaculty;
                 db.SaveChanges();
             }
 

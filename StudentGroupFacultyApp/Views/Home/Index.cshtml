@@ -1,13 +1,15 @@
 ﻿@{
     ViewBag.Title = "Home Page";
     var roles = ViewBag.CurrentUserRoles as string[];
+    var user = ViewBag.CurrentUser as StudentGroupFacultyApp.Models.ApplicationUser;
 }
 
+<h4>Админская панель</h4>
 <div class="row">
 
     <div class="col-md-6">
         <h2><a href="/Students">Студенты</a></h2>
-      </div>
+    </div>
 
     @if (roles.Contains("Admin") || roles.Contains("Student"))
     {
@@ -22,7 +24,7 @@
             <h2><a href="/Groups">Группы</a></h2>
         </div>
     }
-    
+
     @if (roles.Contains("Admin"))
     {
         <div class="col-md-6">
@@ -45,3 +47,34 @@
         </div>
     }
 </div>
+
+<hr />
+<h4>Выбранная сущность</h4>
+<div class="row">
+
+    <div class="col-md-6">
+        <h2><a href="/Students">Студенты</a></h2>
+    </div>
+
+    @if (user.StudentId != null && (roles.Contains("Admin") || roles.Contains("Student")))
+    {
+        <div class="col-md-6">
+            <h2><a href="/StudentFacultyDiscipline">Дисциплины студента</a></h2>
+        </div>
+    }
+
+    @if (user.FacultyId != null && (roles.Contains("Admin") || roles.Contains("Faculty")))
+    {
+        <div class="col-md-6">
+            <h2><a href="/Groups">Группы</a></h2>
+        </div>
+    }
+
+    @if (user.FacultyId != null && (roles.Contains("Admin") || roles.Contains("Faculty")))
+    {
+        <div class="col-md-6">
+            <h2><a href="/FacultyDisciplines">Факультеты и дисциплины</a></h2>
+        </div>
+    }
+</div>
+
